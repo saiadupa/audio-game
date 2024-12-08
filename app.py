@@ -5,9 +5,8 @@ import csv
 import pandas as pd
 
 app = Flask(__name__)
-app.secret_key = 'supersecretkey'
+app.secret_key = 'wecs8798oiqewdascq79'
 
-# Initialize audio data
 audio_data = []
 with open('audios.csv', newline='') as csvfile:
     reader = csv.DictReader(csvfile)
@@ -16,9 +15,9 @@ with open('audios.csv', newline='') as csvfile:
 
 random.shuffle(audio_data)
 
-EXCEL_FILE = 'quiz_results.xlsx'
+# Use /tmp for Excel file in Vercel's serverless environment
+EXCEL_FILE = '/tmp/quiz_results.xlsx'
 
-# Ensure the Excel file exists with the correct headers
 def init_excel():
     if not os.path.isfile(EXCEL_FILE):
         df = pd.DataFrame(columns=['name', 'score', 'total_questions', 'timestamp'])
@@ -106,7 +105,7 @@ def save_quiz():
     name = session.get('name', 'Guest')
     timestamp = pd.Timestamp.now()
 
-    # Append the results to the Excel file
+    # Append the results to the Excel file located in /tmp
     df = pd.read_excel(EXCEL_FILE)
     new_entry = pd.DataFrame({'name': [name], 'score': [score], 'total_questions': [total_questions], 'timestamp': [timestamp]})
     df = pd.concat([df, new_entry], ignore_index=True)
