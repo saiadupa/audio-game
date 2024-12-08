@@ -1,8 +1,6 @@
-Flask
-Jinja2
-Werkzeug
-itsdangerous
-click
-pandas
-random2
-python-csv
+Flask==3.0.3
+Jinja2==3.1.3
+Werkzeug==3.0.6
+itsdangerous==2.2.0
+click==8.1.7
+pandas==2.2.3
