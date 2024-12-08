@@ -3,4 +3,6 @@ Jinja2
 Werkzeug
 itsdangerous
 click
-db-sqlite3 
+pandas
+random2
+python-csv
