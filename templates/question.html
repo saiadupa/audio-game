@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="card">
+        <h1>Audio Quiz</h1>
+
+        <p>Score: <span id="score">{{ score }}/{{ current_index }}</span></p>
+
+        <audio id="audio-player" controls>
+            <source src="{{ audio_url }}" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+
+        <form id="answer-form">
+            <div class="radio-button-container">
+                <input type="radio" id="real" name="answer" value="real" required>
+                <label for="real" class="radio-button-label radio-label-real">Real</label>
+
+                <input type="radio" id="fake" name="answer" value="spoof" required>
+                <label for="fake" class="radio-button-label radio-label-fake">Fake</label>
+            </div>
+            <div class="action">
+                <button type="submit">Submit Answer</button>
+            </div>
+        </form>
+
+        <div id="feedback" style="display:none;">
+            <p id="feedback-message"></p>
+        </div>
+
+        <div class="action">
+            <button id="next-button" style="display:none;" onclick="goToNextQuestion()">Next</button>
+        </div>
+
+        <div class="action">
+            <form action="{{ url_for('stop_quiz') }}" method="post">
+                <button type="submit" class="stop-quiz" style="background-color: red; color: white;">Stop Quiz</button>
+            </form>
+        </div>
+
+        <script>
+            document.getElementById('answer-form').addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                const answer = document.querySelector('input[name="answer"]:checked').value;
+                const formData = new FormData();
+                formData.append('answer', answer);
+
+                fetch("{{ url_for('answer') }}", { 
+                    method: 'POST', 
+                    body: formData 
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const feedback = document.getElementById('feedback');
+                    const feedbackMessage = document.getElementById('feedback-message');
+                    const scoreElement = document.getElementById('score');
+                    const nextButton = document.getElementById('next-button');
+
+                    if (data.is_correct) {
+                        feedbackMessage.textContent = 'Correct!';
+                    } else {
+                        feedbackMessage.textContent = `Incorrect. The correct answer was: ${data.correct_answer}`;
+                    }
+
+                    feedback.style.display = 'block';
+                    nextButton.style.display = 'block';
+                    scoreElement.textContent = `${data.score}/${data.current_index}`;
+                });
+            });
+
+            function goToNextQuestion() {
+                fetch("{{ url_for('next_question') }}", { method: 'POST' })
+                    .then(() => {
+                        location.reload();
+                    });
+            }
+        </script>
+    </div>
+</body>
+</html>

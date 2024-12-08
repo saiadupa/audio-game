@@ -1,0 +1,273 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+}
+
+body {
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    overflow: hidden;
+}
+
+input[type="text"] {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    width: calc(100% - 22px);
+    margin-top: 10px;
+    padding: 10px;
+}
+
+button.stop-quiz {
+    background-color: #DC3545;  /* Red color */
+}
+
+button.stop-quiz:hover {
+    background-color: #A71D2A; /* Darker red */
+}
+
+.card {
+    position: relative;
+    width: 500px;
+    max-width: 90%;
+    background-color: #FAFAFA;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+    padding: 20px;
+}
+
+.card .best {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 5px;
+    background-color: #C81212;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 5px 0 0 0;
+}
+
+.img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+    overflow: hidden;
+    text-align: center;
+}
+
+.img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.img img:hover {
+    transform: scale(1.1);
+}
+
+h1 {
+    font-size: 23px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.price {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    position: relative;
+    flex-direction: column;
+}
+
+.color-picker p {
+    font-size: 18px;
+    color: #111111;
+    margin-bottom: 7px;
+    text-align: center;
+}
+
+.color {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.color p {
+    position: absolute;
+    top: 3px;
+    left: 0;
+}
+
+.color span {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.3s all linear;
+}
+
+.color span:hover {
+    border: 1px solid #111;
+}
+
+.color span:nth-child(1) {
+    background-color: #B1632F;
+}
+
+.color span:nth-child(2) {
+    background-color: #F14C14;
+}
+
+.color span:nth-child(3) {
+    background-color: #C81212;
+}
+
+.color span:nth-child(4) {
+    background-color: #000000;
+}
+
+.price .offer {
+    font-size: 22px;
+    color: #C81212;
+    font-weight: 600;
+}
+
+.price .normal {
+    font-size: 18px;
+    color: #666;
+    font-weight: 500;
+    text-decoration: line-through;
+}
+
+.radio-button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+    flex-direction: row;
+}
+
+.radio-button-label {
+    flex: 1;
+    padding: 10px;
+    margin: 5px;
+    font-size: 18px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+ }
+
+.radio-label-real {
+    background-color: #d4edda;
+    color: green;
+    border: 2px solid green;
+}
+
+.radio-label-fake {
+    background-color: #f8d7da;
+    color: red;
+    border: 2px solid red;
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+input[type="radio"]:checked + .radio-button-label {
+    background-color: #ccc;
+    color: #fff;
+}
+
+.action {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 0 20px;
+    align-items: center;
+    gap: 10px;
+    margin-top: auto;
+    flex-direction: column;
+}
+
+.action button {
+    width: 100%;
+    padding: 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    margin: 10px 0;
+}
+
+/* Default button style */
+.action button:first-of-type {
+    background-color: #007BFF;
+}
+
+.action button:last-of-type {
+    background-color: #28A745;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .card {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .img {
+        width: 100%;
+        height: auto;
+    }
+
+    .price {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    .action {
+        flex-direction: row;
+        width: 100%;
+    }
+
+    .action button {
+        width: 100%;
+    }
+
+    .radio-button-container {
+        flex-direction: row;
+    }
+
+    .radio-button-label {
+        margin: 5px;
+        width: auto;
+    }
+}
