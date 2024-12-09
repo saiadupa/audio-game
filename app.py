@@ -56,24 +56,24 @@ def question():
 def answer():
     user_answer = request.form['answer']
     current_index = session.get('current_index', 0)
-    correct_answer = ''
     is_correct = False
 
     if current_index < len(audio_data):
         correct_answer = audio_data[current_index]['ground_truth']
-        # Convert the ground truth to the correct format
-        correct_answer_formatted = 'bonafide' if correct_answer.lower() == 'real' else 'spoof'
-        if user_answer == correct_answer_formatted:
+        if user_answer == correct_answer:
             session['score'] += 1
             is_correct = True
 
+    # Translate for user-friendly feedback
+    correct_answer_user_friendly = 'Real' if correct_answer == 'bonafide' else 'Fake'
+
     session['is_correct'] = is_correct
-    session['correct_answer'] = correct_answer
+    session['correct_answer'] = correct_answer_user_friendly  # Store user-friendly term for display
     session['questions_seen'] = session.get('questions_seen', 0) + 1
 
     return jsonify({
         'is_correct': is_correct,
-        'correct_answer': correct_answer,
+        'correct_answer': correct_answer_user_friendly,
         'score': session['score'],
         'current_index': current_index + 1,
         'total_questions': len(audio_data)
