@@ -50,8 +50,7 @@ def question():
         return jsonify({"error": "File not found", "file": full_audio_path}), 404
     audio_url = url_for('static', filename=f'audios/{audio_file}')
     score = session.get('score', 0)
-    current_index += 1
-    return render_template('question.html', audio_url=audio_url, score=score, current_index=current_index, total_questions=len(audio_data))
+    return render_template('question.html', audio_url=audio_url, score=score, current_index=current_index + 1, total_questions=len(audio_data))
 
 @app.route('/answer', methods=['POST'])
 def answer():
@@ -62,7 +61,9 @@ def answer():
 
     if current_index < len(audio_data):
         correct_answer = audio_data[current_index]['ground_truth']
-        if user_answer == correct_answer:
+        # Convert the ground truth to the correct format
+        correct_answer_formatted = 'bonafide' if correct_answer.lower() == 'real' else 'spoof'
+        if user_answer == correct_answer_formatted:
             session['score'] += 1
             is_correct = True
 
